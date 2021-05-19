@@ -65,7 +65,7 @@ namespace ImageGalleryApplication
             this.MaximumSize = new Size(810, 810);
             this.MaximizeBox = false;
             this.ShowIcon = false;
-            this.Size = new Size(780, 800);
+            this.Size = new Size(780, 700);
             this.StartPosition = FormStartPosition.CenterParent;
             this.Text = "Image Gallery";
             this.BackColor = Color.White;
