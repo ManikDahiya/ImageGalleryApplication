@@ -1,16 +1,18 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 using C1.Win.C1Tile;
 using C1.C1Pdf;
 using System.Linq;
+using System.IO;
+
 /*
-      Assignment - Image Gallery Application
-      Date       - 17-05-2021
-                   Shows images, exports images to PDF and saves images to local disk
- */
+Assignment - Image Gallery Application
+Date       - 17-05-2021
+   Shows images, exports images to PDF and saves images to local disk
+*/
+
 namespace ImageGalleryApplication
 {
     public partial class ImageGallery : Form
@@ -62,13 +64,13 @@ namespace ImageGalleryApplication
 
             //Customizing the form
             
-            this.MaximumSize = new Size(810, 810);
-            this.MaximizeBox = false;
-            this.ShowIcon = false;
-            this.Size = new Size(780, 700);
-            this.StartPosition = FormStartPosition.CenterParent;
-            this.Text = "Image Gallery";
-            this.BackColor = Color.White;
+            MaximumSize = new Size(810, 810);
+            MaximizeBox = false;
+            ShowIcon = false;
+            Size = new Size(780, 700);
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Image Gallery";
+            BackColor = Color.White;
 
             //Splitting the table
            
@@ -85,7 +87,7 @@ namespace ImageGalleryApplication
             splitContainer.Panel2.Controls.Add(pictureBoxSave);
             splitContainer.Panel2.Controls.Add(tile);
             splitContainer.Panel2.Controls.Add(statusStrip);
-            this.Controls.Add(splitContainer);
+            Controls.Add(splitContainer);
 
 
             //Creating Search Box
@@ -110,7 +112,7 @@ namespace ImageGalleryApplication
             pictureBoxSearch.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxSearch.Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Right);
             pictureBoxSearch.Image = Properties.Resources.Search;
-            pictureBoxSearch.Click += new EventHandler(this.OnSearchClick);
+            pictureBoxSearch.Click += new EventHandler(OnSearchClick);
 
             //Creating Export Button
 
@@ -120,8 +122,8 @@ namespace ImageGalleryApplication
             pictureBoxExport.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxExport.Visible = false;
             pictureBoxExport.Image = Properties.Resources.ExportToPDF;
-            pictureBoxExport.Click += new EventHandler(this.OnExportClick);
-            pictureBoxExport.Paint += new PaintEventHandler(this.OnExportImagePaint);
+            pictureBoxExport.Click += new EventHandler(OnExportClick);
+            pictureBoxExport.Paint += new PaintEventHandler(OnExportImagePaint);
 
             //Creating Export to PDF label
 
@@ -139,8 +141,8 @@ namespace ImageGalleryApplication
             pictureBoxSave.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxSave.Image = Properties.Resources.SaveToPC;
             pictureBoxSave.Visible = false;
-            pictureBoxSave.Click += new EventHandler(this.OnSaveClick);
-            pictureBoxSave.Paint += new PaintEventHandler(this.OnSaveImagePaint);
+            pictureBoxSave.Click += new EventHandler(OnSaveClick);
+            pictureBoxSave.Paint += new PaintEventHandler(OnSaveImagePaint);
 
             //Creating Save to PC Label
 
@@ -169,7 +171,7 @@ namespace ImageGalleryApplication
             panel1.Location = new Point(477, 0);
             panel1.Size = new Size(287, 40);
             panel1.Dock = DockStyle.Fill;
-            panel1.Paint += new PaintEventHandler(this.OnSearchPanelPaint);
+            panel1.Paint += new PaintEventHandler(OnSearchPanelPaint);
             panel1.Controls.Add(textBox);
             panel2.Size = new Size(40, 16);
             panel2.Location = new Point(479, 12);
@@ -195,9 +197,9 @@ namespace ImageGalleryApplication
 
             _group.Name = "_group";
             _group.Text = "Results";
-            _group.Tiles.Add(this.tile1);
-            _group.Tiles.Add(this.tile2);
-            _group.Tiles.Add(this.tile3);
+            _group.Tiles.Add(tile1);
+            _group.Tiles.Add(tile2);
+            _group.Tiles.Add(tile3);
             _group.Visible = false;
 
             //Customizing Tiles
@@ -222,9 +224,9 @@ namespace ImageGalleryApplication
             tile.DefaultTemplate.Elements.Add(panelElement);
             tile.Location = new Point(0, 0);
             tile.Orientation = LayoutOrientation.Vertical;
-            tile.TileChecked += new System.EventHandler<C1.Win.C1Tile.TileEventArgs>(this.OnTileChecked);
-            tile.TileUnchecked += new System.EventHandler<C1.Win.C1Tile.TileEventArgs>(this.OnTileUnchecked);
-            tile.Paint += new PaintEventHandler(this.OnTileControlPaint);
+            tile.TileChecked += new System.EventHandler<C1.Win.C1Tile.TileEventArgs>(OnTileChecked);
+            tile.TileUnchecked += new System.EventHandler<C1.Win.C1Tile.TileEventArgs>(OnTileUnchecked);
+            tile.Paint += new PaintEventHandler(OnTileControlPaint);
 
             //Customizing Status Bar
 
@@ -235,9 +237,11 @@ namespace ImageGalleryApplication
         }
         
         //Implementation of Search Method
+        
         private async void OnSearchClick(object sender, EventArgs e)
         {
             //autocompleting words
+            
             data.Add(textBox.Text);
             textBox.AutoCompleteCustomSource = data;
             
@@ -257,6 +261,7 @@ namespace ImageGalleryApplication
         }
 
         //Adding tiles to the panel
+        
         private void AddTiles(List<ImageItem> imageList)
         {
             tile.Groups[0].Tiles.Clear();
@@ -278,6 +283,7 @@ namespace ImageGalleryApplication
         }
 
         //Adding other customizations to the panels
+        
         private void OnSearchPanelPaint(object sender, PaintEventArgs e)
         {
             Rectangle r = textBox.Bounds;
@@ -287,6 +293,7 @@ namespace ImageGalleryApplication
         }
 
         //Implementation of Export to PDF Method
+        
         private void OnExportClick(object sender, EventArgs e)
         {
             List<Image> images = new List<Image>();
@@ -308,6 +315,7 @@ namespace ImageGalleryApplication
         }
 
         //Converting list of images to PDF
+        
         private void ConvertToPdf(List<Image> images)
         {
             RectangleF rect = imagePdfDocument.PageRectangle;
@@ -325,6 +333,7 @@ namespace ImageGalleryApplication
         }
 
         //Adding customizations to Export panel
+        
         private void OnExportImagePaint(object sender, PaintEventArgs e)
         {
             Rectangle r = new Rectangle(pictureBoxExport.Location.X, pictureBoxExport.Location.Y, pictureBoxExport.Width, pictureBoxExport.Height);
@@ -334,10 +343,11 @@ namespace ImageGalleryApplication
             r.Height--;
             Pen p = new Pen(Color.White);
             e.Graphics.DrawRectangle(p, r);
-            e.Graphics.DrawLine(p, new Point(0, 43), new Point(this.Width, 43));
+            e.Graphics.DrawLine(p, new Point(0, 43), new Point(Width, 43));
         }
 
         //Implementation of Saving to Local Disk Method
+        
         private void OnSaveClick(object sender, EventArgs e)
         {
             List<Image> images1 = new List<Image>();
@@ -363,6 +373,7 @@ namespace ImageGalleryApplication
         }
 
         //Adding customizations to Save panel
+        
         private void OnSaveImagePaint(object sender, PaintEventArgs e)
         {
             Rectangle r = new Rectangle(pictureBoxSave.Location.X, pictureBoxSave.Location.Y, pictureBoxSave.Width, pictureBoxSave.Height);
@@ -372,10 +383,11 @@ namespace ImageGalleryApplication
             r.Height--;
             Pen p = new Pen(Color.LightGray);
             e.Graphics.DrawRectangle(p, r);
-            e.Graphics.DrawLine(p, new Point(0, 43), new Point(this.Width, 43));
+            e.Graphics.DrawLine(p, new Point(0, 43), new Point(Width, 43));
         }
 
         //Implementation of tile checking method
+        
         private void OnTileChecked(object sender, TileEventArgs e)
         {
             checkedItems++;
@@ -386,6 +398,7 @@ namespace ImageGalleryApplication
         }
 
         //Implementation of tile unchecking method
+        
         private void OnTileUnchecked(object sender, TileEventArgs e)
         {
             checkedItems--;
@@ -396,6 +409,7 @@ namespace ImageGalleryApplication
         }
 
         //Adding customizations to tiles
+        
         private void OnTileControlPaint(object sender, PaintEventArgs e)
         {
             Pen p = new Pen(Color.LightGray);
