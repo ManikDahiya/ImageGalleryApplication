@@ -179,15 +179,15 @@ namespace ImageGalleryApplication
 
             //Customizing Tiles
 
-            tile1.BackColor = System.Drawing.Color.LightCoral;
+            tile1.BackColor = Color.LightCoral;
             tile1.Name = "tile1";
             tile1.Text = "Tile 1";
 
-            tile2.BackColor = System.Drawing.Color.Teal;
+            tile2.BackColor = Color.Teal;
             tile2.Name = "tile2";
             tile2.Text = "Tile 2";
 
-            tile3.BackColor = System.Drawing.Color.SteelBlue;
+            tile3.BackColor = Color.SteelBlue;
             tile3.Name = "tile3";
             tile3.Text = "Tile 3";
 
