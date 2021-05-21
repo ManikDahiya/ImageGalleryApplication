@@ -41,7 +41,7 @@ namespace ImageGalleryApplication
         Tile tile2 = new Tile();
         Tile tile3 = new Tile();
         
-        PanelElement panelElement = new PanelElement();
+        
         ImageElement imageElement = new ImageElement();
         TextElement textElement = new TextElement();
         
@@ -203,12 +203,7 @@ namespace ImageGalleryApplication
             _group.Visible = false;
 
             //Customizing Tiles
-
-            panelElement.Alignment = ContentAlignment.BottomLeft;
-            panelElement.Margin = new Padding(10, 6, 10, 6);
-            panelElement.Children.Add(imageElement);
-            panelElement.Children.Add(textElement);
-
+            
             tile.Name = "_imageTileControl";
             tile.AllowChecking = true;
             tile.AllowRearranging = true;
@@ -221,7 +216,6 @@ namespace ImageGalleryApplication
             tile.SwipeDistance = 20;
             tile.SwipeRearrangeDistance = 98;
             tile.Groups.Add(_group);
-            tile.DefaultTemplate.Elements.Add(panelElement);
             tile.Location = new Point(0, 0);
             tile.Orientation = LayoutOrientation.Vertical;
             tile.TileChecked += new System.EventHandler<C1.Win.C1Tile.TileEventArgs>(OnTileChecked);
